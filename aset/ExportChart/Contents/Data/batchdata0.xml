@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="Beverage Sales" subcaption="for the year 1996"
+ xAxisName="Month" yAxisName="Sales" numberPrefix="$" showValues="0"
+ exportAtClient="1"
+ exportEnabled="1"
+ exportHandler="exportComponentSwf"
+ exportFileName="BeverageSalesChart">
+	<set value="11675.25" label="Jan"/>
+	<set value="28558" label="Feb"/>
+	<set value="35869.5" label="Mar"/>
+	<set value="28729.25" label="Apr"/>
+	<set value="24960" label="May"/>
+	<set value="4107" label="Jun"/>
+</chart>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="Confection Sales" subcaption="for the year 1996"
+ xAxisName="Month" yAxisName="Sales" numberPrefix="$" showValues="0"
+ exportAtClient="1"
+ exportEnabled="1"
+ exportHandler="exportComponentSwf"
+ exportFileName="ConfectionSalesChart">
+	<set value="9191.98" label="Jan" />
+	<set value="11839.85" label="Feb" />
+	<set value="10574.05" label="Mar" />
+	<set value="24302.85" label="Apr" />
+	<set value="10309.78" label="May" />
+	<set value="1333.2" label="Jun" />
+</chart>

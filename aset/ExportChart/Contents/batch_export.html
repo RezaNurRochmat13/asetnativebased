@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FusionCharts Export Component Example Implementation - Batch Exporting</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="../FusionCharts/FusionCharts.js"></script>
+<script type="text/javascript" src="../FusionCharts/FusionChartsExportComponent.js"></script>
+<script type="text/javascript">
+
+// we will deal with four charts here. so, it is a good practice to have a variable that
+// will define the same
+var totalCharts = 4;
+var exportComponent = new FusionChartsExportObject('exportComponentSwf', '../FusionCharts/FCExporter.swf');
+FusionChartsExportObject.defaultParameters.debugMode = true;
+
+// set component attributes
+exportComponent.componentAttributes.width = '220';
+exportComponent.componentAttributes.height = '200';
+exportComponent.componentAttributes.saveAllTitle = ' ';
+exportComponent.componentAttributes.btnSaveAllTitle = 'Save all charts as single file';
+exportComponent.componentAttributes.fullMode = '1';
+exportComponent.componentAttributes.saveMode = 'both';
+exportComponent.componentAttributes.defaultExportFilename = 'Sales Report of 1996';
+
+// The 'exportChart()' command should not be called when the chart is yet to be rendered.
+// Hence, to be on the safer side, we are making sure that the export chatry option is not
+// called unless charts has been rendered poroperly
+var renderStateCounter = 0;
+function FC_Rendered(chartId) {
+	renderStateCounter++;
+	if(renderStateCounter == totalCharts) {
+		changeBtnDisabledTo(false);
+		showMessage();
+	}
+}
+
+// this event is used to track when the capturing of the chart is completed
+var exportStateCounter = 0;
+function FC_ExportReady(arg) {
+	exportStateCounter++;
+
+	if(exportStateCounter >= exportComponent.sourceCharts.length) {
+		changeBtnDisabledTo(false);
+			showMessage();
+	}
+}
+
+// select charts based upon the click of radio buttons
+// this section of code is not important, in case you are not using the selection radio
+// buttons
+function setSelection(selectionList)
+{
+	for( var i = 0; i < totalCharts; i++ ) {
+		document.getElementById('check'+i).checked = selectionList.indexOf(','+i+',') > -1;
+	}
+}
+
+function exportCharts(strType) {
+	
+	exportComponent.sourceCharts = new Array();
+	for( var i = 0; i < totalCharts; i++ ) {
+		if(document.getElementById('check'+i).checked) {
+			exportComponent.sourceCharts.push(FusionCharts('sales'+i));
+		}
+	}
+	
+	if(exportComponent.sourceCharts.length < 1) {
+		alert('Select at least one chart to export.');
+		return;
+	}
+	
+	// set the type of export as per button parameter
+	exportComponent.componentAttributes.defaultExportFormat = strType;
+	exportComponent.exportAttributes.exportFormat = strType;
+
+	exportComponent.Render('componentContainer');
+	exportStateCounter = 0; // reset counter
+	
+	changeBtnDisabledTo(true);
+	showMessage('Please wait while the charts export...');
+		
+	exportComponent.BeginExport();
+}
+
+// change button disabled state
+function changeBtnDisabledTo(btnState) {
+	document.getElementById('exportButtonPDF').disabled = btnState;
+	document.getElementById('exportButtonPNG').disabled = btnState;
+	document.getElementById('exportButtonJPG').disabled = btnState;
+}
+
+function showMessage(msg) {
+	var obj = document.getElementById('statMsg')
+	if(msg) {
+		obj.innerHTML = msg;
+		obj.parentNode.style.visibility='';
+	} else {
+		obj.parentNode.style.visibility='hidden';
+	}
+}
+</script>
+<style type="text/css">
+.container {
+}
+</style>
+</head>
+<body>
+<div id="ctl_head"><img src="Images/header_banner.gif" width="960" height="75" alt=" " /></div>
+<div id="ctl_outerwrap">
+  <div id="ctl_wrap">
+    <div id="ctl_side">
+      <p align="center">&nbsp;      </p>
+      <p align="center">
+        <input type="button" class="button" value="Export as PDF" onclick="exportCharts('PDF')" id="exportButtonPDF" disabled="disabled" />
+      </p>
+      <p align="center">
+        <input type="button" class="button" value="Export as PNG" onclick="exportCharts('PNG')" id="exportButtonPNG" disabled="disabled" />
+      </p>
+      <p align="center">
+        <input type="button" class="button" value="Export as JPG" onclick="exportCharts('JPG')" id="exportButtonJPG" disabled="disabled" />
+      </p>
+      <p align="center"><img src="Images/ajax-loader.gif" alt="Please wait..." align="absmiddle" />&nbsp;<span id="statMsg" style="color:#990000">Loading Charts...</span></p>
+      <p><strong>Instructions:</strong><br />
+      To start batch export, please select the charts you want to include in the batch output and then click on button below. Post export, you can save either individual charts or all charts together in the UI below.</p>
+      <div id="componentContainer"></div>
+    </div>
+    <div id="ctl_body">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div class="container">
+              <div class="meta">
+                <label>
+                <input type="checkbox" id="check0" checked="checked" />
+                Select this chart</label>
+              </div>
+              <div id="container0" class="chart">Loading Chart</div>
+            </div></td>
+          <td><div class="container">
+              <div class="meta">
+                <label>
+                <input type="checkbox" id="check1" checked="checked" />
+                Select this chart</label>
+              </div>
+              <div id="container1" class="chart">Loading Chart</div>
+            </div></td>
+        </tr>
+        <tr>
+          <td><div class="container">
+              <div class="meta">
+                <label>
+                <input type="checkbox" id="check2" checked="checked" />
+                Select this chart</label>
+              </div>
+              <div id="container2" class="chart">Loading Chart</div>
+            </div></td>
+          <td><div class="container">
+              <div class="meta">
+                <label>
+                <input type="checkbox" id="check3" checked="checked" />
+                Select this chart</label>
+              </div>
+              <div id="container3" class="chart">Loading Chart</div>
+            </div></td>
+        </tr>
+      </table>
+      <div class="triggers" style="clear: left;">
+        <p>&nbsp;</p>
+        <p>
+          <label>
+          <input name="selection" type="radio" onclick="setSelection(this.value)" value=",0,1,2,3," checked="checked" />
+          Select All</label>
+          <label>
+          <input type="radio" name="selection" value="" onclick="setSelection(this.value)" />
+          Select None</label>
+        </p>
+        <p>Batch export is an innovative feature of FusionCharts that allows you to export all the charts present on a web page as a single PDF or image file. It allows you to provide your users with downloadable reports. 
+      </div>
+      </p>
+    </div>
+    <div id="ctl_tabs"> <a href="client_export.html"><span>Client-side Exporting</span></a> <a href="server_export.html"><span>Server-side Exporting</span></a> <a href="batch_export.html" class="selected"><span>Batch  Exporting</span></a> </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+<div id="ctl_foot">
+  <div align="center">This demo has been created using <a href="http://www.fusioncharts.com/?BS=ExportDemo">FusionCharts v3.1</a>. You are free to redistribute this demo in its original form, without any modification.<br />
+  &copy; FusionCharts Technologies LLP</div>
+</div>
+<script type="text/javascript">
+	// Create new FusionCharts
+	var salesCharts = new Array();
+	
+	// run a loop to initialize all (9) charts
+	for( var i = 0; i < totalCharts; i++ )
+	{
+		salesCharts.push( new FusionCharts( '../FusionCharts/Column3D.swf', 'sales'+i, '305', '215', '0', '1' ) );
+		salesCharts[i].setXMLUrl('Data/batchdata'+i+'.xml');
+		salesCharts[i].render('container'+i);
+	}
+	
+	// disable all buttons
+	changeBtnDisabledTo(true);
+
+	//render the export component
+	exportComponent.Render('componentContainer');
+</script>
+
+<!-- Google Analytics Tracker Code Starts -->
+<script type="text/javascript">
+// analytics
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost 
+	+ "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if (typeof(_gat) == "object") {
+	var pageTracker = _gat._getTracker("UA-215295-3"); pageTracker._initData(); pageTracker._trackPageview();
+}
+</script>
+<!-- Google Analytics Tracker Code Ends -->
+</body>
+</html>

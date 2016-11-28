@@ -1,0 +1,19 @@
+{
+	"chart": {
+			"caption" : "Grafik Jumlah Aset keseluruhan",
+			"exportatclient": "0",
+            "exportaction": "save",
+            "exportenabled": "1",
+            "exportformats": "PDF",
+            "exporthandler": "http://localhost:80/aino/aset/ExportHandler/FCExporter.aspx"
+			},
+			
+	"data" :
+		[
+		  {"label" : "Hardware","Value" : "56"},
+		  {"label" : "Software","Value" : "4"},
+		  {"label" : "Peralatan Kantor","Value" : "158"},
+		  {"label" : "Bangunan","Value" : "4"}
+		  {"label" : "Kendaraan","Value" : "1"}
+		]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="Dairy Product Sales" subcaption="for the year 1996"
+ xAxisName="Month" yAxisName="Sales" numberPrefix="$" showValues="0"
+ exportAtClient="1"
+ exportEnabled="1"
+ exportHandler="exportComponentSwf"
+ exportFileName="DairyProductSalesChart">
+	<set value="10590.5" label="Jan" />
+	<set value="18835.5" label="Feb" />
+	<set value="11889.5" label="Mar" />
+	<set value="14990.8" label="Apr" />
+	<set value="36452.1" label="May" />
+	<set value="636" label="Jun" />
+</chart>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="Condiment Sales" subcaption="for the year 1996"
+ xAxisName="Month" yAxisName="Sales" numberPrefix="$" showValues="0"
+ exportAtClient="1"
+ exportEnabled="1"
+ exportHandler="exportComponentSwf"
+ exportFileName="CondimentSalesChart">
+	<set value="6252.6" label="Jan" />
+	<set value="5000.45" label="Feb" />
+	<set value="6727.2" label="Mar" />
+	<set value="11018.3" label="Apr" />
+	<set value="10737.5" label="May" />
+	<set value="1074" label="Jun" />
+</chart>

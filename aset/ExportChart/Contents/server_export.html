@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FusionCharts Export Component Example Implementation - Server-side Exporting</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<!-- FusionCharts Core JavaScript Object -->
+<script type="text/javascript" src="../FusionCharts/FusionCharts.js"></script>
+
+<script type="text/javascript">
+function exportCharts(exportType)
+{
+	//Get reference to chart.
+	var chart = FusionCharts("chart1Id");
+	
+	// Now, we proceed with exporting only if chart has finished rendering.
+	if (chart.hasRendered() != true)
+	{
+		alert("Please wait for the chart to finish rendering, before you can invoke exporting");
+		return;
+	}
+	
+	// call exporting function
+	chart.exportChart( {exportFormat: exportType} );
+}
+</script>
+</head>
+
+<body>
+
+  <div id="ctl_head"><img src="Images/header_banner.gif" width="960" height="75" alt=" " /></div>
+  <div id="ctl_outerwrap">
+  <div id="ctl_wrap">
+    <div id="ctl_side">
+      <p align="center">&nbsp;</p>
+      <p align="center">
+        <input type="button" class="button" value="Export as PDF" onclick="exportCharts('PDF')" id="exportButtonPDF" />
+      </p>
+      <p align="center">
+        <input type="button" class="button" value="Export as PNG" onclick="exportCharts('PNG')" id="exportButtonPNG" />
+      </p>
+      <p align="center">
+        <input type="button" class="button" value="Export as JPG" onclick="exportCharts('JPG')" id="exportButtonJPG" />
+      </p>
+      <p>&nbsp;</p>
+      <p><strong>Notes:</strong><br />
+        When you export the pie chart on left, either using the buttons below or using context menu of the chart, the server-side export handlers of FusionCharts are responsible for building the final image/PDF output. Since the data gets transferred to server, you might notice a small time lag in generating the final output.</p>
+    </div>
+    <div id="ctl_body">
+      <p>&nbsp;</p>
+      <div id="serverSideChart" style="text-align:center">Loading Chart... </div>
+      <p>FusionCharts server-side exporter component allows you to either save the exported chart on server or allows users to download the exported file using the browser's download window.</p>
+      <p>Please note that in both cases, the chart first needs to render in a  browser, before the bitmap snapshot can be sent to server for  processing. You CANNOT directly generate an image of chart on server,  without actually rendering it in browser.<br />
+      </p>
+    </div>
+    <div id="ctl_tabs">
+      <a href="client_export.html"><span>Client-side Exporting</span></a>
+      <a href="server_export.html" class="selected"><span>Server-side Exporting</span></a>
+      <a href="batch_export.html"><span>Batch  Exporting</span></a>    </div>
+    <div style="clear:both"></div>
+  </div>
+  </div>
+  <div id="ctl_foot">
+    <div align="center">This demo has been created using <a href="http://www.fusioncharts.com/?BS=ExportDemo">FusionCharts v3.1</a>. You are free to redistribute this demo in its original form, without any modification.<br />
+  &copy; FusionCharts Technologies LLP</div>
+  </div>
+
+  <script type="text/javascript" >
+
+	// Render the chart (See documentation for explanation of the codes below)
+	var chart1 = new FusionCharts("../FusionCharts/Pie3D.swf", "chart1Id", "600", "400", "0", "1");		   			
+	chart1.setXMLUrl("Data/dataserver.xml");
+	chart1.render("serverSideChart");
+  
+  </script>
+
+<!-- Google Analytics Tracker Code Starts -->
+<script type="text/javascript">
+// analytics
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost 
+	+ "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if (typeof(_gat) == "object") {
+	var pageTracker = _gat._getTracker("UA-215295-3"); pageTracker._initData(); pageTracker._trackPageview();
+}
+</script>
+<!-- Google Analytics Tracker Code Ends -->
+</body>
+</html>

@@ -1,0 +1,7 @@
+<chart caption='Grafik Jumlah Aset keseluruhan' xAxisName='Hardware','Software''Peralatan Kantor''Bangunan''Kendaraan' yAxisName='' numberPrefix='Rp' showValues= '0' exportAtClient='0' exportAction='save' exportEnabled='1' exportFormats='PDF' exportHandler='http://localhost:80/aino/aset/ExportHandler/FCExporter.aspx'> 
+   <set label='Hardware' value='56.00' />
+   <set label='Software' value='4.00' />
+   <set label='Peralatan Kantor' value='158.00' />
+   <set label='Bangunan' value='4.00' />
+   <set label='Kendaraan' value='1.00' />
+</chart>

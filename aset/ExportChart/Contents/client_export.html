@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FusionCharts Export Component Example Implementation - Client-side Exporting</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<script type="text/javascript" src="../FusionCharts/FusionCharts.js"></script>
+<script type="text/javascript" src="../FusionCharts/FusionChartsExportComponent.js"></script>
+<script type="text/javascript">
+   //This event is raised when the chart has finished capture phase and passed the data to
+   //Export Component for further processing
+   function FC_ExportReady(DOMId)
+   {
+		
+        if( getChartFromId("fcExporter1") && getChartFromId("fcExporter1").isReady && getChartFromId("fcExporter1").isReady())
+		{
+			return;
+		}
+		
+		
+		var myExportComponent = new FusionChartsExportObject("fcExporter1", "../FusionCharts/FCExporter.swf");
+		
+		
+		
+		//------ Export Component Attributes ------//
+		//Set saving mode as individual. This allows users to download individual charts.
+		myExportComponent.componentAttributes.saveMode='individual';
+		//Show allowed export format drop-down
+		myExportComponent.componentAttributes.showAllowedTypes = '1';
+		//Cosmetics	
+		//Width and height
+		myExportComponent.componentAttributes.width = '200';
+		myExportComponent.componentAttributes.height = '100';
+		//Message - caption of export component
+		//Render the exporter SWF in our DIV fcexpDiv
+		myExportComponent.Render("fcExportDiv");
+   }
+</script>
+<script type="text/javascript">
+	function exportHandler()
+	{
+	
+        if( getChartFromId("fcExporter1") && getChartFromId("fcExporter1").isReady && getChartFromId("fcExporter1").isReady())
+		{
+			getChartFromId("fcExporter1").reset();
+		}
+
+		//Get reference to chart.
+		var chart = FusionCharts("chart1Id");
+		//Now, we proceed with exporting only if chart has finished rendering.
+		//We do not check rendering of export component, as FusionCharts Export Object JS
+		//has a built-in queue that stacks up the export request until the component is ready.
+		if (chart.hasRendered() == true){
+			chart.exportChart();
+			//fcExportDiv
+		}else{
+			alert("Please wait for the chart to finish rendering before you can invoke exporting");
+		}
+	}
+</script>
+</head>
+
+<body>
+
+  <div id="ctl_head"><img src="Images/header_banner.gif" width="960" height="75" alt=" " /></div>
+  <div id="ctl_outerwrap">
+  <div id="ctl_wrap">
+  
+    <div id="ctl_side">
+    <p>&nbsp;</p>
+      <p align="center"><input type="button" class="button" onclick="exportHandler();" value="Export Chart" /></p>
+      <div id="fcExportDiv" align="center">&nbsp;</div>
+      <p><strong>Instructions:<br />
+      </strong>Please click on &quot;Export Chart&quot; button to export the chart as image. Or, you can right click on the chart and select &quot;Save as ...&quot;.</p>
+      <p>Once exported, you can then choose the required format in the Export Component Interface.</p>
+      <p><strong>Notes:</strong><br />
+      Please make sure that you've Flash Player 10 installed, as that is required by FusionCharts Export Component. The charts need Flash Player 8 (or above)</p>
+    </div>
+    
+    <div id="ctl_body">
+    
+      <p>
+      <div style="text-align:center;" id="clientSideChart" >Loading Chart</div>
+      <p>FusionCharts allows you to export your charts as JPEG, PNG or PDF files at both client-side and server-side. When exporting at client-side, FusionCharts Export Component is used to process the image data, and to allow the user to download it. </p>
+      <p style="padding: 0;">Advantages of client-side exporting are:</p>
+      <ul style="margin-top: 0; list-style: circle">
+        <li>Quick and easy export</li>
+        <li>Less consumption of your server bandwidth</li>
+        <li>Better resource utilization of your server CPU, as the charts are rendered and then exported at client-side</li>
+      </ul></p>
+      </div>
+    <div id="ctl_tabs">
+      <a href="client_export.html" class="selected"><span>Client-side Exporting</span></a>
+      <a href="server_export.html"><span>Server-side Exporting</span></a>
+      <a href="batch_export.html"><span>Batch Exporting</span></a>    </div>
+    <div style="clear:both"></div>
+  </div>
+  </div>
+  <div id="ctl_foot">
+    <div align="center">This demo has been created using <a href="http://www.fusioncharts.com/?BS=ExportDemo">FusionCharts v3.1</a>. You are free to redistribute this demo in its original form, without any modification.<br />
+  &copy; FusionCharts Technologies LLP</div>
+  </div>
+  
+<script type="text/javascript" >
+	// Render the chart (See documentation for explanation of the codes below)
+	var chart1 = new FusionCharts("../FusionCharts/Pie3D.swf", "chart1Id", "600", "400", "0", "1");
+	chart1.setXMLUrl("Data/dataclient.xml");
+	chart1.render("clientSideChart");
+</script>
+
+<!-- Google Analytics Tracker Code Starts -->
+<script type="text/javascript">
+// analytics
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost 
+	+ "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if (typeof(_gat) == "object") {
+	var pageTracker = _gat._getTracker("UA-215295-3"); pageTracker._initData(); pageTracker._trackPageview();
+}
+</script>
+<!-- Google Analytics Tracker Code Ends -->
+
+</body>
+</html>
